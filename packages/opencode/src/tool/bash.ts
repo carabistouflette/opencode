@@ -288,8 +288,8 @@ function cmd(shell: string, command: string, cwd: string, env: NodeJS.ProcessEnv
     })
   }
 
-  return ChildProcess.make(command, [], {
-    shell,
+  const shellName = Shell.name(shell)
+  return ChildProcess.make(shellName, ["-lc", command], {
     cwd,
     env,
     stdin: "ignore",
