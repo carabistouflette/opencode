@@ -1,5 +1,4 @@
 import { cmd } from "@/cli/cmd/cmd"
-import { tui } from "./app"
 import { Rpc } from "@/util/rpc"
 import { type rpc } from "./worker"
 import path from "path"
@@ -192,7 +191,6 @@ export const TuiThreadCommand = cmd({
         directory: cwd,
         fn: () => resolveNetworkOptionsNoConfig(args),
       })
-
       const external =
         process.argv.includes("--port") ||
         process.argv.includes("--hostname") ||
@@ -231,6 +229,7 @@ export const TuiThreadCommand = cmd({
       }, 1000).unref?.()
 
       try {
+        const { tui } = await import("./app")
         await tui({
           url: transport.url,
           async onSnapshot() {
@@ -260,4 +259,3 @@ export const TuiThreadCommand = cmd({
     process.exit(0)
   },
 })
-// scratch
